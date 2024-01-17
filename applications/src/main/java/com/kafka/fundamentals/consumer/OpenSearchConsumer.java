@@ -65,16 +65,7 @@ public class OpenSearchConsumer {
                     }
                 }
                 if (bulkRequest.numberOfActions() > 0){
-                    BulkResponse bulkResponse = openSearchClient.bulk(bulkRequest, RequestOptions.DEFAULT);
-                    log.info("Inserted " + bulkResponse.getItems().length + " record(s).");
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    // commit offsets after the batch is consumed
-                    consumer.commitSync();
-                    log.info("Offsets have been committed!");
+                    processRecords(openSearchClient, bulkRequest, consumer);
                 }
             }
         } catch (WakeupException e) {
@@ -185,5 +176,22 @@ public class OpenSearchConsumer {
             httpAsyncClientBuilder -> httpAsyncClientBuilder.setDefaultCredentialsProvider(cp)
             .setKeepAliveStrategy(new DefaultConnectionKeepAliveStrategy())
         );
+    }
+
+    public static void processRecords (
+        RestHighLevelClient openSearchClient,
+        BulkRequest bulkRequest, 
+        KafkaConsumer<String, String> consumer 
+    ) throws IOException {
+        BulkResponse bulkResponse = openSearchClient.bulk(bulkRequest, RequestOptions.DEFAULT);
+        log.info("Inserted " + bulkResponse.getItems().length + " record(s).");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        // commit offsets after the batch is consumed
+        consumer.commitSync();
+        log.info("Offsets have been committed!");
     }
 }

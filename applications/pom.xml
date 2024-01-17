@@ -49,6 +49,26 @@
         <artifactId>okhttp-eventsource</artifactId>
         <version>2.3.2</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.opensearch/opensearch-common -->
+    <dependency>
+        <groupId>org.opensearch</groupId>
+        <artifactId>opensearch-common</artifactId>
+        <version>2.11.1</version>
+    </dependency>
+<!-- https://mvnrepository.com/artifact/org.opensearch.client/opensearch-rest-high-level-client -->
+    <dependency>
+        <groupId>org.opensearch.client</groupId>
+        <artifactId>opensearch-rest-high-level-client</artifactId>
+        <version>2.11.1</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+    <dependency>
+        <groupId>com.google.code.gson</groupId>
+        <artifactId>gson</artifactId>
+        <version>2.10.1</version>
+    </dependency>
+
+
   </dependencies>
 
   <build>
